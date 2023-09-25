@@ -1,24 +1,24 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import {
   StyledBtn,
   StyledForm,
   StyledInput,
   StyledLabel,
 } from './ContactForm.styled';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contactsSlice';
 
-export const ContactForm = ({ handleAddContact }) => {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-
-    handleAddContact(name, number);
+    dispatch(addContact(name, number));
     setName('');
     setNumber('');
   };
-  console.log(name, number);
 
   return (
     <StyledForm onSubmit={handleSubmit}>
@@ -51,8 +51,4 @@ export const ContactForm = ({ handleAddContact }) => {
       <StyledBtn>Add contact</StyledBtn>
     </StyledForm>
   );
-};
-
-ContactForm.propTypes = {
-  handleAddContact: PropTypes.func,
 };
